@@ -10,8 +10,11 @@
   "author": "CGW",
   "license": "MIT",
   "dependencies": {
+    "file-loader": "^6.2.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "styled-components": "^6.1.13",
+    "styled-reset": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.7",
