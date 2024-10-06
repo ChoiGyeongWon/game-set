@@ -16,7 +16,7 @@ export default function App() {
 
   switch (gameState) {
     case "ready":
-      content = <GameStart />;
+      content = <GameStart changeGameState={changeGameState} />;
       break;
       case "start":
       content = <GameReady changeGameState={changeGameState} />;

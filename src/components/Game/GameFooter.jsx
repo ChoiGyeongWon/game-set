@@ -10,11 +10,16 @@ const Footer = styled.header`
   gap: 10px;
 `;
 
-export default function GameFooter() {
+export default function GameFooter({ addBoardCards, restCardLength, handleGetHint }) {
   return (
     <Footer>
-      <Button.ControlState>힌트</Button.ControlState>
-      <Button.ControlState>카드뽑기</Button.ControlState>
+      <Button.ControlState onClick={handleGetHint}>힌트</Button.ControlState>
+      <Button.ControlState
+        onClick={addBoardCards}
+        disabled={restCardLength === 0}
+      >
+        카드뽑기 {restCardLength}장
+      </Button.ControlState>
     </Footer>
   );
 }

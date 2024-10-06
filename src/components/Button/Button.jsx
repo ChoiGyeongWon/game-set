@@ -31,6 +31,11 @@ const ButtonDefault = styled.button.attrs((props) => props)`
     background-position: center center;
     background-repeat: no-repeat;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 `;
 
 export default function Button({ children, ...props }) {
