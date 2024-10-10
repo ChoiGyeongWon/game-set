@@ -7,6 +7,11 @@ import GameEnd from "./components/Game/GameEnd.jsx";
 
 export default function App() {
   const [gameState, setGameState] = useState("ready"); // ready -> start -> end
+  const [idx, setIdx] = useState(0);
+
+  function addIdx() {
+    setIdx((prev) => ++prev);
+  }
 
   let content;
 
@@ -16,13 +21,19 @@ export default function App() {
 
   switch (gameState) {
     case "ready":
-      content = <GameStart changeGameState={changeGameState} />;
-      break;
-      case "start":
       content = <GameReady changeGameState={changeGameState} />;
       break;
     case "start":
-      content = <GameEnd />;
+      content = (
+        <GameStart
+          changeGameState={changeGameState}
+          addIdx={addIdx}
+          key={idx}
+        />
+      );
+      break;
+    case "end":
+      content = <GameEnd changeGameState={changeGameState} />;
       break;
   }
 

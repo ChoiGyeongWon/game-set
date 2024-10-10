@@ -14,6 +14,7 @@ const SetCard = styled.div`
   align-items: center;
   gap: 10px;
   box-shadow: 0px 0px 2px;
+  cursor: pointer;
 
   &:not(.active) {
     &:hover {

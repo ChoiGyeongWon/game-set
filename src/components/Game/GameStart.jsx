@@ -25,7 +25,7 @@ const StartBox = styled.section`
   }
 `;
 
-export default function GameStart() {
+export default function GameStart({ changeGameState, addIdx }) {
   const [boardCards, setBoardCards] = useState(getCards().initTwelveCards);
   const [restCards, setRestCards] = useState(getCards().initRestCards);
   const [hintId, setHintId] = useState(null);
@@ -67,8 +67,13 @@ export default function GameStart() {
 
   return (
     <StartBox>
-      <GameHeader />
-      <GameBoard boardCards={boardCards} removeBoardCards={removeBoardCards} hintId={hintId} handleHintEmpty={handleHintEmpty}/>
+      <GameHeader changeGameState={changeGameState} addIdx={addIdx} />
+      <GameBoard
+        boardCards={boardCards}
+        removeBoardCards={removeBoardCards}
+        hintId={hintId}
+        handleHintEmpty={handleHintEmpty}
+      />
       <GameFooter
         addBoardCards={addBoardCards}
         restCardLength={restCards.length}

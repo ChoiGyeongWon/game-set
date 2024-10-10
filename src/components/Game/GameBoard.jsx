@@ -11,6 +11,7 @@ const Board = styled.div`
   padding: var(--size-padding);
   background-color: var(--color-green-1);
   border-radius: var(--border-radius);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0);
 
   & > ul {
     overflow-y: auto;
