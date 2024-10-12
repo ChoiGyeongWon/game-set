@@ -57,6 +57,7 @@ const ReadyBox = styled.section`
         align-items: center;
         width: 90px;
         height: 125px;
+        pointer-events: none;
       }
     }
   }
