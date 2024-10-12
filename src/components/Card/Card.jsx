@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 
 import styled from "styled-components";
 
-const SetCard = styled.div`
+const SetCard = styled.button`
   width: 90%;
   height: 90%;
   background-color: var(--color-white);
@@ -28,12 +28,27 @@ const SetCard = styled.div`
   }
 
   &.showHint {
-    background-color: yellow;
+    animation: 2s linear hint;
+  }
+
+  @keyframes hint {
+    0% {
+      background-color: #fff;
+    }
+    25% {
+      background-color: var(--color-violet);
+    }
+    50% {
+      background-color: #fff;
+    }
+    75% {
+      background-color: var(--color-violet);
+    }
   }
 
   .shape-star {
-    width: 40px;
-    height: 40px;
+    width: 20%;
+    height: 20%;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
@@ -73,8 +88,8 @@ const SetCard = styled.div`
   }
 
   .shape-heart {
-    width: 40px;
-    height: 40px;
+    width: 20%;
+    height: 20%;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
@@ -114,8 +129,8 @@ const SetCard = styled.div`
   }
 
   .shape-cloud {
-    width: 40px;
-    height: 40px;
+    width: 20%;
+    height: 20%;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
@@ -189,7 +204,7 @@ export default function Card({
           ""
         );
         handleHintEmpty();
-      }, 3000);
+      }, 2000);
     }
     return () => {
       clearTimeout(timeoutRef.current);

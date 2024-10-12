@@ -1,32 +1,55 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import styled from "styled-components";
 
-const Time = styled.span``;
+const Time = styled.span`
+  background: var(--color-violet);
+  color: #fff;
+  padding: 10px 15px;
+  font-size: 0.875rem;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 5px;
+`;
 
-export default function Timer({ changeGameState, addIdx }) {
-  const [totalTimer, setTotalTimer] = useState(0);
+export default function Timer({
+  selectValue,
+  changeGameState,
+  timeEnd,
+  sendCorrectSetLength,
+  endTimeRef,
+}) {
+  const [totalTimer, setTotalTimer] = useState(selectValue);
+
   const intervalRef = useRef();
-  const hoursRef = useRef(Math.floor(totalTimer / 3600));
-  const minutseRef = useRef(Math.floor((totalTimer % 3600) / 60));
-  const secondsRef = useRef(totalTimer % 60);
-  hoursRef.current = Math.floor(totalTimer / 3600);
-  minutseRef.current = Math.floor((totalTimer % 3600) / 60);
-  secondsRef.current = totalTimer % 60;
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setTotalTimer((prev) => ++prev);
+      setTotalTimer((prev) => --prev);
+      endTimeRef.current = totalTimer;
     }, 1000);
 
     return () => {
       clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [totalTimer]);
+
+  useEffect(() => {
+    if (totalTimer <= 0) {
+      timeEnd(totalTimer);
+      changeGameState("end");
+      sendCorrectSetLength();
+    }
+  }, [totalTimer]);
+
+  const hours = Math.floor(totalTimer / 3600);
+  const minutes = Math.floor((totalTimer % 3600) / 60);
+  const seconds = totalTimer % 60;
 
   return (
-    <Time>{`${String(hoursRef.current).padStart(2, "0")}:${String(
-      minutseRef.current
-    ).padStart(2, "0")}:${String(secondsRef.current).padStart(2, "0")}`}</Time>
+    <Time>{`${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+      2,
+      "0"
+    )}:${String(seconds).padStart(2, "0")}`}</Time>
   );
 }

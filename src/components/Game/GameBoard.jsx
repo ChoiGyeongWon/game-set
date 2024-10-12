@@ -33,7 +33,12 @@ const Board = styled.div`
   }
 `;
 
-export default function GameBoard({ boardCards, removeBoardCards, hintId, handleHintEmpty }) {
+export default function GameBoard({
+  boardCards,
+  removeBoardCards,
+  hintId,
+  handleHintEmpty,
+}) {
   const [selectedCards, setSelectedCards] = useState([]);
 
   useEffect(() => {

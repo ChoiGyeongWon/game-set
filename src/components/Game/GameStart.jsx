@@ -25,18 +25,37 @@ const StartBox = styled.section`
   }
 `;
 
-export default function GameStart({ changeGameState, addIdx }) {
+export default function GameStart({
+  changeGameState,
+  selectValue,
+  timeEnd,
+  changeGameIdx,
+  getRestCardLength,
+  gameState,
+  endTimeRef,
+}) {
   const [boardCards, setBoardCards] = useState(getCards().initTwelveCards);
   const [restCards, setRestCards] = useState(getCards().initRestCards);
   const [hintId, setHintId] = useState(null);
 
   useEffect(() => {
     // 보드의 카드에 세트 유무 확인, 있다면 변동X, 없다면 카드 추가
-    //console.log(findSet(boardCards));
     if (findSet(boardCards) === null) {
       addBoardCards();
     }
   }, [boardCards, addBoardCards]);
+
+  useEffect(() => {
+    // 더이상 세트가 없음
+    if (restCards.length === 0 && findSet(boardCards) === null) {
+      sendCorrectSetLength();
+      changeGameState("end");
+    }
+  }, [restCards, boardCards, changeGameState]);
+
+  function sendCorrectSetLength() {
+    getRestCardLength(restCards, boardCards);
+  }
 
   function removeBoardCards(selectedCards) {
     // 선택한 카드 3장이 세트일 때
@@ -48,7 +67,6 @@ export default function GameStart({ changeGameState, addIdx }) {
   }
 
   function addBoardCards() {
-    if (restCards.length === 0) return;
     const willAddCards = [restCards[0], restCards[1], restCards[2]];
     for (const card of willAddCards) {
       setRestCards((prevCards) =>
@@ -61,13 +79,22 @@ export default function GameStart({ changeGameState, addIdx }) {
   function handleGetHint() {
     setHintId(findSet(boardCards)[0].id);
   }
+
   function handleHintEmpty() {
     setHintId(null);
   }
 
   return (
     <StartBox>
-      <GameHeader changeGameState={changeGameState} addIdx={addIdx} />
+      <GameHeader
+        changeGameState={changeGameState}
+        timeEnd={timeEnd}
+        selectValue={selectValue}
+        changeGameIdx={changeGameIdx}
+        sendCorrectSetLength={sendCorrectSetLength}
+        gameState={gameState}
+        endTimeRef={endTimeRef}
+      />
       <GameBoard
         boardCards={boardCards}
         removeBoardCards={removeBoardCards}
